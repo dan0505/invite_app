@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link } from "@reach/router"
 import { Row, Col, Button, notification, Divider, Typography } from "antd";
+import "antd/dist/antd.css";
 const { Title, Text } = Typography;
 
 const BackgoundWrapper = styled.div`

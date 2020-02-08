@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Layout, Menu, Icon, Skeleton, Button, Popover, Steps, Row, Col } from "antd";
-import { Link } from 'react-router-dom';
+import "antd/dist/antd.css";
+import { Link } from "@reach/router"
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Step } = Steps;
@@ -43,7 +44,7 @@ export default class AddEvent extends React.Component {
     if (this.state.user) {
       return (
         <Row type="flex" justify="center">
-          <Col span="15">{this.progressBar(0)}</Col>
+          <Col span={15}>{this.progressBar(0)}</Col>
         </Row>
       );
     } else {

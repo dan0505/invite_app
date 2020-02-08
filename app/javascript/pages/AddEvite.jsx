@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Layout, Menu, Icon, Skeleton, Popover, Steps, Row, Col } from "antd";
+import { Layout, Menu, Icon, Skeleton, Button, Popover, Steps, Row, Col } from "antd";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Step } = Steps;
@@ -55,12 +55,12 @@ export default class AddEvent extends React.Component {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={["1"]}
+            defaultSelectedKeys={["2"]}
             style={{ lineHeight: "64px" }}
           >
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
+            <Menu.Item key="1">Updates</Menu.Item>
+            <Menu.Item key="2"><Icon type="plus" />New Evite</Menu.Item>
+            <Menu.Item key="3">Groups</Menu.Item>
           </Menu>
           <div style={{ position: "absolute", top: "0", right: "15px" }}>
             <Login updateUser={this.userUpdated} />

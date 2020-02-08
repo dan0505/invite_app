@@ -1,4 +1,4 @@
-class RegistrationsController < ApplicationController
+class Api::RegistrationsController < ApplicationController
   def create
     user = User.create!(
       name: params["user"]["name"],
@@ -10,11 +10,10 @@ class RegistrationsController < ApplicationController
     if user
       session[:user_id] = user.id
       render json: {
-        status: :created,
         user: user,
-      }
+      }, status: :created
     else
-      render json: { status: 500 }
+      render json: { error: "failed to create user" }, status: 500
     end
   end
 end

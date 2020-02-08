@@ -69,7 +69,7 @@ export default class AddEvent extends React.Component {
         </Header>
         <Row type="flex" justify="center">
           <Col span={20}>
-            <Layout style={{ padding: "24px" }}>
+            <Layout style={{ padding: "24px", minHeight:"80vh" }}>
               <Content
                 style={{
                   background: "#fff",

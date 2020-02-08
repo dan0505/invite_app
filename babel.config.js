@@ -81,7 +81,11 @@ module.exports = function(api) {
         {
           removeImport: true
         }
-      ]
+      ],
+      ["import", {
+        "libraryName": "antd",
+        "style": 'css',   // or 'css'
+      }]
     ].filter(Boolean)
   }
 }

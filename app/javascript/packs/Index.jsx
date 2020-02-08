@@ -4,6 +4,7 @@ import { render } from "react-dom";
 // import $ from "jquery";
 // import Popper from "popper.js";
 // import "bootstrap/dist/js/bootstrap.bundle.min";
+import "antd/dist/antd.css";
 import App from "./App";
 
 document.addEventListener("DOMContentLoaded", () => {

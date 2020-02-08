@@ -42,7 +42,9 @@ export default class AddEvent extends React.Component {
   bodyPlaceholder() {
     if (this.state.user) {
       return (
-        this.progressBar(0)
+        <Row type="flex" justify="center">
+          <Col span="15">{this.progressBar(0)}</Col>
+        </Row>
       );
     } else {
       return <Skeleton active />;

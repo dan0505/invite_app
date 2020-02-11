@@ -37,7 +37,7 @@ export default class Login extends React.Component {
     let _this = this;
     let previousUser = localStorage.getItem("logged_in") || "false";
     if (JSON.stringify(user) != previousUser) {
-      localStorage.setItem("logged_in", JSON.stringify(user));
+      localStorage.setItem("logged_in", JSON.stringify({ "user": user }));
       // _this.props.updateUser(user);
       _this.updateParent(user);
       if (user) {
@@ -51,7 +51,7 @@ export default class Login extends React.Component {
   checkLogin() {
     let _this = this;
     axios
-      .get("/api/logged_in")
+      .get("/api/sessions/logged_in")
       .then(function(response) {
         _this.updateParentUser(response.data.user);
         _this.setState({
@@ -152,7 +152,7 @@ export default class Login extends React.Component {
   handleLogout() {
     let _this = this;
     axios
-      .delete("/api/logout")
+      .get("/api/sessions/logout")
       .then(function(response) {
         _this.updateParentUser(false);
         _this.setState({
@@ -172,12 +172,16 @@ export default class Login extends React.Component {
 
   logged_in() {
     if (this.state.logged_in) {
-      let user = JSON.parse(localStorage.getItem("logged_in"));
-      console.log(JSON.parse(localStorage.getItem("logged_in")));
+      let user = false;
+      let local_user = localStorage.getItem("logged_in");
+      if (local_user) {
+        user = JSON.parse(local_user)
+      }
+      console.log(user);
       return (
         <div>
           <span style={{ color: "white", marginRight: "1rem" }}>
-            Hi, {user.name}
+            Hi, {user.user.name}
           </span>
           <Button onClick={this.handleLogout}>Logout</Button>
         </div>

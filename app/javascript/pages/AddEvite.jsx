@@ -1,19 +1,37 @@
 import React from "react";
 
-import { Layout, Menu, Icon, Skeleton, Button, Popover, Steps, Row, Col } from "antd";
+import {
+  Layout,
+  Menu,
+  Icon,
+  Skeleton,
+  Button,
+  Popover,
+  Steps,
+  Row,
+  Col
+} from "antd";
 import "antd/dist/antd.css";
-import { Link } from "@reach/router"
+import { Link } from "@reach/router";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Step } = Steps;
 import Footer from "../components/Footer";
 import Login from "../components/Login";
+import AddEventForm from "../components/AddEventForm";
 
 export default class AddEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: JSON.parse(localStorage.getItem("logged_in"))
+      user: function () {
+        let user = false;
+        let local_user = localStorage.getItem("logged_in");
+        if (local_user) {
+          user = JSON.parse(local_user)
+        }
+        return user;
+      }
     };
     this.userUpdated = this.userUpdated.bind(this);
     this.bodyPlaceholder = this.bodyPlaceholder.bind(this);
@@ -29,23 +47,29 @@ export default class AddEvent extends React.Component {
   progressBar(step) {
     return (
       <Steps current={step}>
-          <Step title="Create Event" description="Add details to your event." />
-          <Step
-            title="Add Friends"
-            description="Add your friend emails so we can sent them the Evite."
-          />
-          <Step
-            title="Done!" description="That's it!." />
-        </Steps>
-    )
+        <Step title="Create Event" description="Add details to your event." />
+        <Step
+          title="Add Friends"
+          description="Add your friend emails so we can sent them the Evite."
+        />
+        <Step title="Done!" description="That's it!." />
+      </Steps>
+    );
   }
 
   bodyPlaceholder() {
     if (this.state.user) {
       return (
-        <Row type="flex" justify="center">
-          <Col span={15}>{this.progressBar(0)}</Col>
-        </Row>
+        <div>
+          <Row type="flex" justify="center">
+            <Col span={15}>{this.progressBar(0)}</Col>
+          </Row>
+          <Row type="flex" justify="center" style={{marginTop: "30px"}}>
+            <Col span={5}>
+              <AddEventForm />
+            </Col>
+          </Row>
+        </div>
       );
     } else {
       return <Skeleton active />;
@@ -62,8 +86,17 @@ export default class AddEvent extends React.Component {
             defaultSelectedKeys={["2"]}
             style={{ lineHeight: "64px" }}
           >
-            <Menu.Item key="1"><Link to="/updates" className="nav-text">Updates</Link></Menu.Item>
-            <Menu.Item key="2"><Link to="/add-evite" className="nav-text"><Icon type="plus" />New Evite</Link></Menu.Item>
+            <Menu.Item key="1">
+              <Link to="/updates" className="nav-text">
+                Updates
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/add-evite" className="nav-text">
+                <Icon type="plus" />
+                New Evite
+              </Link>
+            </Menu.Item>
             <Menu.Item key="3">Groups</Menu.Item>
           </Menu>
           <div style={{ position: "absolute", top: "0", right: "15px" }}>
@@ -72,7 +105,7 @@ export default class AddEvent extends React.Component {
         </Header>
         <Row type="flex" justify="center">
           <Col span={20}>
-            <Layout style={{ padding: "24px", minHeight:"80vh" }}>
+            <Layout style={{ padding: "24px", minHeight: "80vh" }}>
               <Content
                 style={{
                   background: "#fff",

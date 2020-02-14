@@ -17,8 +17,9 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 const { Step } = Steps;
 import Footer from "../components/Footer";
-import Login from "../components/Login";
+
 import AddEventForm from "../components/AddEventForm";
+import ProgressBar from "components/ProgressBar"
 
 export default class AddEvent extends React.Component {
   constructor(props) {
@@ -33,9 +34,7 @@ export default class AddEvent extends React.Component {
         return user;
       }
     };
-    this.userUpdated = this.userUpdated.bind(this);
     this.bodyPlaceholder = this.bodyPlaceholder.bind(this);
-    this.progressBar = this.progressBar.bind(this);
   }
 
   userUpdated(user) {
@@ -44,27 +43,14 @@ export default class AddEvent extends React.Component {
     });
   }
 
-  progressBar(step) {
-    return (
-      <Steps current={step}>
-        <Step title="Create Event" description="Add details to your event." />
-        <Step
-          title="Add Friends"
-          description="Add your friend emails so we can sent them the Evite."
-        />
-        <Step title="Done!" description="That's it!." />
-      </Steps>
-    );
-  }
-
   bodyPlaceholder() {
     if (this.state.user) {
       return (
         <div>
           <Row type="flex" justify="center">
-            <Col span={15}>{this.progressBar(0)}</Col>
+            <Col span={15}><ProgressBar step={0}/></Col>
           </Row>
-          <Row type="flex" justify="center" style={{marginTop: "30px"}}>
+          <Row type="flex" justify="center" style={{ marginTop: "30px" }}>
             <Col span={5}>
               <AddEventForm />
             </Col>
@@ -78,49 +64,17 @@ export default class AddEvent extends React.Component {
 
   render() {
     return (
-      <Layout>
-        <Header>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            style={{ lineHeight: "64px" }}
-          >
-            <Menu.Item key="1">
-              <Link to="/updates" className="nav-text">
-                Updates
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/add-evite" className="nav-text">
-                <Icon type="plus" />
-                New Evite
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="3">Groups</Menu.Item>
-          </Menu>
-          <div style={{ position: "absolute", top: "0", right: "15px" }}>
-            <Login updateUser={this.userUpdated} />
-          </div>
-        </Header>
-        <Row type="flex" justify="center">
-          <Col span={20}>
-            <Layout style={{ padding: "24px", minHeight: "80vh" }}>
-              <Content
-                style={{
-                  background: "#fff",
-                  padding: 24,
-                  margin: 0,
-                  minHeight: 280
-                }}
-              >
-                {this.bodyPlaceholder()}
-              </Content>
-            </Layout>
-          </Col>
-        </Row>
-
-        <Footer />
+      <Layout style={{ padding: "24px", minHeight: "80vh" }}>
+        <Content
+          style={{
+            background: "#fff",
+            padding: 24,
+            margin: 0,
+            minHeight: 280
+          }}
+        >
+          {this.bodyPlaceholder()}
+        </Content>
       </Layout>
     );
   }

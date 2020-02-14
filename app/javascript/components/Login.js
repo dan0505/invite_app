@@ -17,8 +17,7 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       logged_in: false,
-      email: "",
-      password: ""
+      user: null
     };
     this.updateParent = this.props.updateUser;
     this.checkLogin = this.checkLogin.bind(this);
@@ -30,7 +29,6 @@ export default class Login extends React.Component {
 
   componentDidMount() {
     this.checkLogin();
-    console.log(this.props);
   }
 
   updateParentUser(user) {

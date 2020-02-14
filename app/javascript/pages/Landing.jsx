@@ -47,13 +47,10 @@ export default () => (
         <Title>EVITE</Title>
         <Text>Share within your circle!</Text>
         <Divider />
-        <Button href="/add-evite" size="large">
+        <Button href="dashboard/add-evite" size="large">
           New Evite
         </Button>
-        {/* <Button size="large" onClick={openNotification}>
-          Open the notification box
-        </Button> */}
-        <Button href="/evites" type="link" size="large">
+        <Button href="dashboard/evites" type="link" size="large">
         Existing Evites
         </Button>
       </Container>

@@ -16,7 +16,8 @@ import Footer from "components/Footer";
 
 export default (props) => (
 
-      <Layout>
+  <Layout>
+    {console.log(props)}
         <NavBar userHandler={props.userHandler} user={props.user}/>
         <Row type="flex" justify="center">
           <Col span={20}>

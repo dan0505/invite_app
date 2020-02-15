@@ -10,6 +10,7 @@ import Landing from "pages/Landing";
 import Dashboard from "pages/Dashboard"
 import AddEvite from "pages/AddEvite";
 import AddEviteFriend from "pages/AddEventFriend"
+import AddSuccess from "pages/AddSuccess";
 
 const openNotification = (message, type) => {
   notification[type]({
@@ -43,9 +44,10 @@ export default class App extends React.Component {
       <React.Fragment>
         <Router>
           <Landing path="/" />
-          <Dashboard path="dashboard" userHandler={this.userUpdated} user={this.state.user}>
-            <AddEvite path="add-evite" />
-            <AddEviteFriend path="event-add-friend/:event_id" />
+          <Dashboard path="dashboard" userHandler={this.userHandler} user={this.state.user}>
+            <AddEvite path="add-evite" user={this.state.user}/>
+            <AddEviteFriend path="event-add-friend/:event_id" user={this.state.user} />
+            <AddSuccess path="event-success"/>
           </Dashboard>
 
         </Router>

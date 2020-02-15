@@ -10,58 +10,38 @@ import {
   Tabs,
   Spin
 } from "antd";
+import { ThemeProvider } from "styled-components";
 const { TabPane } = Tabs;
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      logged_in: false,
-      user: null
-    };
-    this.updateParent = this.props.updateUser;
-    this.checkLogin = this.checkLogin.bind(this);
+    console.log("props in login", props)
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmitPassword = this.handleSubmitPassword.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-    this.updateParentUser = this.updateParentUser.bind(this);
   }
 
   componentDidMount() {
     this.checkLogin();
   }
 
-  updateParentUser(user) {
-    let _this = this;
-    let previousUser = localStorage.getItem("logged_in") || "false";
-    if (JSON.stringify(user) != previousUser) {
-      localStorage.setItem("logged_in", JSON.stringify({ "user": user }));
-      // _this.props.updateUser(user);
-      _this.updateParent(user);
-      if (user) {
-        window.flash(`Logged in as ${user.name}`);
-      } else {
-        window.flash("Logged out");
-      }
-    }
-  }
-
-  checkLogin() {
+  checkLogin = () => {
     let _this = this;
     axios
       .get("/api/sessions/logged_in")
-      .then(function(response) {
-        _this.updateParentUser(response.data.user);
-        _this.setState({
-          logged_in: true
-        });
+      .then(function (response) {
+        console.log(response);
+        if (response.data.logged_in) {
+          console.log(response.data.user);
+          _this.props.userHandler(response.data.user);
+        } else {
+          console.log("not logged in")
+          _this.props.userHandler(null);
+        }
       })
       .catch(function(error) {
-        console.log(error.response);
-        _this.updateParentUser(false);
-        _this.setState({
-          logged_in: false
-        });
+        console.log(error);
       });
   }
 
@@ -82,11 +62,10 @@ export default class Login extends React.Component {
           password: this.state.password
         }
       })
-      .then(function(response) {
-        _this.updateParentUser(response.data.user);
-        _this.setState({
-          logged_in: true
-        });
+      .then(function (response) {
+        console.log(response);
+        _this.props.userHandler(response.data.user);
+        window.flash(`You have logged in as ${response.data.user.name}`)
       })
       .catch(function(error) {
         console.log(error);
@@ -96,10 +75,6 @@ export default class Login extends React.Component {
             window.flash("Password Invalid", "error");
           }
         }
-        _this.updateParentUser(false);
-        _this.setState({
-          logged_in: false
-        });
       });
   };
 
@@ -147,39 +122,32 @@ export default class Login extends React.Component {
     </Tabs>
   );
 
-  handleLogout() {
+  handleLogout = () => {
     let _this = this;
     axios
       .get("/api/sessions/logout")
       .then(function(response) {
-        _this.updateParentUser(false);
-        _this.setState({
-          logged_in: false
-        });
+        console.log(response);
+        window.flash("You have logged out");
+        _this.props.userHandler(null)
       })
       .catch(function(error) {
         console.log(error);
         if (error.response) {
           if (error.response.status === 401) {
-            console.log("logout failed, use not match");
             window.flash("Logout failed, try again", "error");
           }
         }
       });
   }
 
-  logged_in() {
-    if (this.state.logged_in) {
-      let user = false;
-      let local_user = localStorage.getItem("logged_in");
-      if (local_user) {
-        user = JSON.parse(local_user)
-      }
-      console.log(user);
+  logged_in = () => {
+    if (this.props.user) {
+      console.log(this.props.user);
       return (
         <div>
           <span style={{ color: "white", marginRight: "1rem" }}>
-            Hi, {user.user.name}
+            Hi, {this.props.user.name}
           </span>
           <Button onClick={this.handleLogout}>Logout</Button>
         </div>

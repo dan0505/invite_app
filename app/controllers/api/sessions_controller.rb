@@ -28,11 +28,11 @@ class Api::SessionsController < ApplicationController
       render json: {
         logged_in: true,
         user: @current_user,
-      }, status: 200
+      }, status: :ok
     else
       render json: {
         logged_in: false,
-      }, status: 400
+      }, status: :ok
     end
   end
 end

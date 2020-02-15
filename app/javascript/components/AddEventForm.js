@@ -55,7 +55,7 @@ export default class AddEventForm extends React.Component {
 
   render() {
     if (this.state.event_created) {
-      return <Redirect to={`dashboard/event-add-friend/${this.state.event_id}`}/>;
+      return <Redirect noThrow from={'/dashboard/add-evite'} to={`/dashboard/event-add-friend/${this.state.event_id}`}/>;
     } else {
       return (
         <div>

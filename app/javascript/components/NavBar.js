@@ -17,18 +17,18 @@ export default ({ partial = true, ...props }) => (
       style={{ lineHeight: "64px" }}
     >
       <Menu.Item key="1">
-        <Link to="dashboard/updates" className="nav-text">
+        <Link to="/dashboard/updates" className="nav-text">
           Updates
         </Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to="dashboard/add-evite" className="nav-text">
+        <Link to="/dashboard/add-evite" className="nav-text">
           <Icon type="plus" />
           New Evite
         </Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to="dashboard/groups" className="nav-text">
+        <Link to="/dashboard/groups" className="nav-text">
           Groups
         </Link>
       </Menu.Item>
